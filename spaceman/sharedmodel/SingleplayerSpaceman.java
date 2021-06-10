@@ -25,7 +25,8 @@ public class SingleplayerSpaceman implements Spaceman {
    * @return Spaceman instance with the random word
    */
   public static Spaceman create() {
-    String randomWord = new WordDatabase().getWord();
+    WordDatabase wordDatabase = new WordDatabase();
+    String randomWord = wordDatabase.getWord();
     return new SingleplayerSpaceman(randomWord);
   }
 
