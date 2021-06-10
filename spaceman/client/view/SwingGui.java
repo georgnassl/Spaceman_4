@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Optional;
+import java.util.function.Consumer;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import spaceman.client.controller.Controller;
@@ -134,7 +135,12 @@ public class SwingGui extends JFrame {
   /** Shows the loading animation. */
   public void showLoadingScreen() {
     setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-    getSelectGameScreenIfActive().ifPresent((gameScreen) -> gameScreen.setDisabled());
+    getSelectGameScreenIfActive().ifPresent(new Consumer<SelectGameScreen>() {
+      @Override
+      public void accept(SelectGameScreen gameScreen) {
+        gameScreen.setDisabled();
+      }
+    });
   }
 
   /** Hides the loading animation. */
