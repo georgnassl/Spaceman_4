@@ -16,6 +16,7 @@ public class GameState implements Serializable {
 
   GameState(final String word, final int countdownValue) {
     wordToGuess = new WordToGuess(word);
+    wordToGuess.setCurrentListOfWords(currentListOfWords);
     countdown = new Countdown(countdownValue);
     initialCountdownValue = countdownValue;
     currentPhase = Phase.RUNNING;

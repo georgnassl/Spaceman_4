@@ -72,16 +72,15 @@ public class CurrentListOfWords {
    * Compares the given List of WordToGuess (converted as String) to the given current WordToGuess (converted as String).
    * @return a updated List of WordToGuess matching to the currentWord.
    */
-  public ArrayList<WordToGuess> updateCurrentListOfWords(ArrayList<WordToGuess> formerCurrentListOfWords, WordToGuess currentWord) {
+  public void updateCurrentListOfWords(ArrayList<WordToGuess> formerCurrentListOfWords, WordToGuess currentWord) {
     currentListOfWords.clear();
     String currentWordAsString = convertToCurrentWordAsString(currentWord);
     for (WordToGuess word : formerCurrentListOfWords) {
       String possibleNewWord = convertToCurrentWordAsString(word);
       if (currentWordAsString.equals(possibleNewWord)) {
-      currentListOfWordsAsString.add(possibleNewWord);
+      currentListOfWords.add(word);
       }
     }
-  return currentListOfWords;
   }
 
   /**
@@ -90,17 +89,21 @@ public class CurrentListOfWords {
    * @param guessedCharacter the character to reveal.
    * @return an updated currentListOfWords.
    */
-  public ArrayList<WordToGuess> revealCharactersInWholeList(ArrayList<WordToGuess> formerCurrentListOfWords,
+  public void revealCharactersInWholeList(ArrayList<WordToGuess> formerCurrentListOfWords,
                                                             char guessedCharacter) {
-    ArrayList<WordToGuess> newCurrentListOfWords = new ArrayList<>();
+
     for (WordToGuess word : formerCurrentListOfWords) {
       word.revealChar(guessedCharacter);
-      newCurrentListOfWords.add(word);
+
     }
-    return newCurrentListOfWords;
+
   }
 
   public ArrayList<WordToGuess> getCurrentListOfWords() {
     return currentListOfWords;
+  }
+
+  public void setCurrentListOfWords(ArrayList<WordToGuess> currentListOfWords) {
+    CurrentListOfWords.currentListOfWords = currentListOfWords;
   }
 }

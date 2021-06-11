@@ -12,6 +12,8 @@ public class WordToGuess implements Serializable {
 
   private String completeWord;
   private List<GuessChar> revealedCharacters;
+  private CurrentListOfWords currentListOfWords;
+  private ArrayList<WordToGuess> updatedCurrentListOfWords;
 
   WordToGuess(final String word) {
     completeWord = word;
@@ -50,10 +52,25 @@ public class WordToGuess implements Serializable {
    * Guess the given character. If the character is in the word, all occurrences of the character
    * are revealed in the word.
    *
+   * NEW: before the regular guess, the model searches for the group of evil words,
+   * that seem to have the most possibilities to fail in the further game progress.
+   * @TODO: Turn System.out.println into comment for the Praktomat.
    * @param guessedCharacter character to guess
    * @return <code>true</code>if the character is in the word. <code>false</code> otherwise
    */
   boolean guess(final char guessedCharacter) {
+
+    ArrayList<WordToGuess> formerCurrentListOfWords = currentListOfWords.getCurrentListOfWords();
+    currentListOfWords.updateCurrentListOfWords(formerCurrentListOfWords,this);
+
+    EvilGroupOfWords evilGroupOfWords = EvilGroupOfWords.createEvilGroupOfWords(currentListOfWords,guessedCharacter);
+    // Here we get just an placeholder (element at 42. position) for the whole evilGroup, that represents the revealed characters
+    WordToGuess newEvilWordToGuess = evilGroupOfWords.getGroupOfEvilWords().get(42);
+    this.revealedCharacters = newEvilWordToGuess.getCharacters();
+    this.completeWord = newEvilWordToGuess.getCompleteWord();
+    System.out.println(completeWord);
+
+    // From here the classic way continues. The possibility to reveal before (in EvilGroupOfWords) was not chosen because of this.
     char guessedLower = Character.toLowerCase(guessedCharacter);
     char guessedUpper = Character.toUpperCase(guessedCharacter);
 
@@ -62,11 +79,14 @@ public class WordToGuess implements Serializable {
     }
 
     for (int i = 0; i < getWordLength(); i++) {
-      char originialLower = Character.toLowerCase(completeWord.charAt(i));
-      if (originialLower == guessedLower) {
+      char originalLower = Character.toLowerCase(completeWord.charAt(i));
+      if (originalLower == guessedLower) {
         revealCharacterAt(i);
       }
     }
+    // the guessed character is revealed in the whole evilGroupOfWords here now.
+    currentListOfWords.revealCharactersInWholeList(evilGroupOfWords.getGroupOfEvilWords(), guessedCharacter);
+    currentListOfWords.setCurrentListOfWords(evilGroupOfWords.getGroupOfEvilWords());
     return true;
   }
 
@@ -109,5 +129,13 @@ public class WordToGuess implements Serializable {
   private void revealCharacterAt(int atIndex) {
     GuessChar revealedChar = new GuessChar(completeWord.charAt(atIndex));
     revealedCharacters.set(atIndex, revealedChar);
+  }
+
+  public void setCurrentListOfWords(CurrentListOfWords currentListOfWords) {
+    this.currentListOfWords = currentListOfWords;
+  }
+
+  public CurrentListOfWords getCurrentListOfWords() {
+    return currentListOfWords;
   }
 }

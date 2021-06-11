@@ -37,11 +37,13 @@ public class EvilGroupOfWords {
   */
   public static void produceEvilMap(CurrentListOfWords listOfWords, char guessedCharacter) {
 
-    ArrayList<WordToGuess> newListOfWords
-            = listOfWords.revealCharactersInWholeList(listOfWords.getCurrentListOfWords(), guessedCharacter);
+    ArrayList<WordToGuess> newListOfWords = listOfWords.getCurrentListOfWords();
+
     evilMapOfWords.clear();
     for (WordToGuess word : newListOfWords) {
-        String keyword = listOfWords.convertToCurrentWordAsString(word);
+        WordToGuess wordWithRevealedChar = word;
+        wordWithRevealedChar.revealChar(guessedCharacter);
+        String keyword = listOfWords.convertToCurrentWordAsString(wordWithRevealedChar);
         if (!evilMapOfWords.keySet().contains(keyword)) {
             evilMapOfWords.put(keyword, new ArrayList<WordToGuess>());
         }
@@ -77,7 +79,7 @@ public class EvilGroupOfWords {
         return evilMapOfWords.get(evilKeyword);
   }
 
-  public static ArrayList<WordToGuess> getGroupOfEvilWords() {
+  public ArrayList<WordToGuess> getGroupOfEvilWords() {
         return groupOfEvilWords;
   }
 }
