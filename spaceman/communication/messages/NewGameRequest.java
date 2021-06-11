@@ -7,15 +7,15 @@ import java.io.Serializable;
  * given name.
  */
 public class NewGameRequest implements Serializable {
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-  public NewGameRequest(String playerName) {
-    this.playerName = playerName;
-  }
+    public NewGameRequest(String playerName) {
+        this.playerName = playerName;
+    }
 
-  private String playerName;
+    private final String playerName;
 
-  public String getPlayerName() {
-    return this.playerName;
-  }
+    public String getPlayerName() {
+        return this.playerName;
+    }
 }

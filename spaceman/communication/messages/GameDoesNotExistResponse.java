@@ -7,5 +7,5 @@ import java.io.Serializable;
  * game id.
  */
 public class GameDoesNotExistResponse implements Serializable {
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 }

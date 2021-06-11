@@ -7,5 +7,5 @@ import java.io.Serializable;
  * NewGameRequest} if the player name already exists in the game.
  */
 public class PlayerNameAlreadyExistsResponse implements Serializable {
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 }
