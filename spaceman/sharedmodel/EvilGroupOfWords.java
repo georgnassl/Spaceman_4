@@ -7,15 +7,25 @@ import java.util.concurrent.ConcurrentHashMap;
 public class EvilGroupOfWords {
 
   private static Map<String, ArrayList<WordToGuess>> evilMapOfWords = new ConcurrentHashMap<>();
-  private static ArrayList<WordToGuess> evilGroupOfWords;
+  private static ArrayList<WordToGuess> groupOfEvilWords;
   private static CurrentListOfWords listOfWords;
+  private static String evilKeyword;
+
+  /**
+  * creates an object of this class, that performs all the actions to get a new list of evil WordsTo Guess as a parameter.
+  * @param currentListOfWords the List of WordsToGuess in where the guessed character should be revealed and that should be evil processed.
+  * @param guessedCharacter the newly guessed character.
+  */
 
   public static EvilGroupOfWords createEvilGroupOfWords (CurrentListOfWords currentListOfWords, Character guessedCharacter) {
     EvilGroupOfWords evilGroupOfWords = new EvilGroupOfWords();
     listOfWords = currentListOfWords;
+    produceEvilMap(currentListOfWords,guessedCharacter);
+    findOutEvilKeyword(evilMapOfWords);
+    groupOfEvilWords = extractGroupOfEvilWords(evilMapOfWords, evilKeyword);
 
-
-
+    System.out.println(evilKeyword);
+    System.out.println(groupOfEvilWords.get(0).getCompleteWord());
     return evilGroupOfWords;
   }
 
@@ -26,8 +36,9 @@ public class EvilGroupOfWords {
   * @param guessedCharacter the newly guessed character.
   */
   public static void produceEvilMap(CurrentListOfWords listOfWords, char guessedCharacter) {
-    ArrayList<WordToGuess> newListOfWords = listOfWords.revealCharactersInWholeList(listOfWords.getCurrentListOfWords(), guessedCharacter);
 
+    ArrayList<WordToGuess> newListOfWords
+            = listOfWords.revealCharactersInWholeList(listOfWords.getCurrentListOfWords(), guessedCharacter);
     evilMapOfWords.clear();
     for (WordToGuess word : newListOfWords) {
         String keyword = listOfWords.convertToCurrentWordAsString(word);
@@ -36,63 +47,37 @@ public class EvilGroupOfWords {
         }
         evilMapOfWords.get(keyword).add(word);
         }
-    }
+  }
 
     /**
-     * Produces the String of an evil pattern.
-     *
-     * @param wordList         the ArrayList of WordToGuess from which the pattern is produced
-     * @param guessedCharacter the character the string of an evil pattern is produced with.
-     * @return a String of an evil pattern.
+     * Finds the keyword(String) with the most elements. This is the evilKeyword
+     * @param evilMapOfWords the ConcurrentHashmap of Lists of WordsToGuess in order to the position of the newly revealed character.
+     * @return the evilKeyword
      */
-    public static String getEvilPattern(ArrayList<WordToGuess> wordList, char guessedCharacter) {
+  public static void findOutEvilKeyword(Map<String, ArrayList<WordToGuess>> evilMapOfWords) {
+    int countOfWordsToGuess = 0;
 
-        //guess(wordList, guessedCharacter);
-
-        candidates.clear();
-
-        for (WordToGuess old : wordList) {
-            WordToGuess newWord = WordToGuess.revealSpecificChar(old, guessedCharacter);
-            String newPattern = convertCharactersToString(newWord.getCharacters());
-
-            if (!candidates.keySet().contains(newPattern)) {
-                candidates.put(newPattern, new ArrayList<>());
-            }
-            candidates.get(newPattern).add(newWord);
+    for (String keyword : evilMapOfWords.keySet()) {
+        int currentCountOfWordsToGuess = evilMapOfWords.get(keyword).size();
+        if (currentCountOfWordsToGuess > countOfWordsToGuess) {
+            countOfWordsToGuess = currentCountOfWordsToGuess;
+            evilKeyword = keyword;
         }
-
-        String currentEvilPattern = "";
-        int maxNumberOfWords = 0;
-
-        for (String pattern : candidates.keySet()) {
-            int numberOfWords = candidates.get(pattern).size();
-
-            if (numberOfWords > maxNumberOfWords) {
-                maxNumberOfWords = numberOfWords;
-                currentEvilPattern = pattern;
-            }
-        }
-        //System.out.println(maxNumberOfWords);
-        //System.out.println(candidates.get(currentEvilPattern));
-        return currentEvilPattern;
     }
+  System.out.println(countOfWordsToGuess);
+  }
 
     /**
-     * Produces an evil WordToGuess object.
-     *
-     * @param wordList         the ArrayList of WordToGuess the evil word is produced from.
-     * @param guessedCharacter the character the evil word is produced with
-     * @return an evil WordToGuess object.
+     * Extracts the List of WordsToGuess from
+     * @param evilMapOfWords with the keyword
+     * @param evilKeyword to get a new group (list)
+     * of the WordsToGuess with the most elements (also most possibilities to fail with a guess --> evilWords).
      */
-    public static WordToGuess getEvilWord(ArrayList<WordToGuess> wordList,
-                                          char guessedCharacter) {
-        String mostEvilPattern = getEvilPattern(wordList, guessedCharacter);
-        //System.out.println(mostEvilPattern);
-        ArrayList<WordToGuess> candidateWords = candidates.get(mostEvilPattern);
-        //Collections.shuffle(candidateWords);
+  public static ArrayList<WordToGuess> extractGroupOfEvilWords(Map<String, ArrayList<WordToGuess>> evilMapOfWords, String evilKeyword) {
+        return evilMapOfWords.get(evilKeyword);
+  }
 
-        return candidateWords.get(0);
-    }
-
-
+  public static ArrayList<WordToGuess> getGroupOfEvilWords() {
+        return groupOfEvilWords;
+  }
 }
