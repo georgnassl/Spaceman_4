@@ -12,27 +12,27 @@ import javax.swing.*;
  */
 public class WelcomeScreen extends Box {
 
-    private static final long serialVersionUID = 4230162211355981591L;
+  private static final long serialVersionUID = 4230162211355981591L;
 
-    private static final int MARGIN = 15; // px
+  private static final int MARGIN = 15; // px
 
-    private WelcomeScreen(final Controller controller) {
-        super(BoxLayout.Y_AXIS);
+  private WelcomeScreen(final Controller controller) {
+    super(BoxLayout.Y_AXIS);
 
-        JButton newSinglePlayerButton = new JButton("Singleplayer");
-        newSinglePlayerButton.addActionListener(e -> controller.requestedSinglePlayerMode());
-        JButton newMultiPlayerButton = new JButton("Multiplayer");
-        newMultiPlayerButton.addActionListener(e -> controller.requestedMultiPlayerMode());
+    JButton newSinglePlayerButton = new JButton("Singleplayer");
+    newSinglePlayerButton.addActionListener(e -> controller.requestedSinglePlayerMode());
+    JButton newMultiPlayerButton = new JButton("Multiplayer");
+    newMultiPlayerButton.addActionListener(e -> controller.requestedMultiPlayerMode());
 
-        add(Components.centerHorizontally(Banner.create("Spaceman")));
-        add(Components.centerHorizontally(newSinglePlayerButton));
-        add(Components.centerHorizontally(newMultiPlayerButton));
+    add(Components.centerHorizontally(Banner.create("Spaceman")));
+    add(Components.centerHorizontally(newSinglePlayerButton));
+    add(Components.centerHorizontally(newMultiPlayerButton));
 
-        // add some spacing to the window
-        setBorder(BorderFactory.createEmptyBorder(MARGIN, MARGIN, MARGIN, MARGIN));
-    }
+    // add some spacing to the window
+    setBorder(BorderFactory.createEmptyBorder(MARGIN, MARGIN, MARGIN, MARGIN));
+  }
 
-    public static WelcomeScreen create(final Controller controller) {
-        return new WelcomeScreen(controller);
-    }
+  public static WelcomeScreen create(final Controller controller) {
+    return new WelcomeScreen(controller);
+  }
 }

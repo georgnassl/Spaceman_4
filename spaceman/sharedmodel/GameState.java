@@ -2,77 +2,70 @@ package spaceman.sharedmodel;
 
 import java.io.Serializable;
 
-/**
- * Represents the internal state of the game.
- */
+/** Represents the internal state of the game. */
 public class GameState implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    private Phase currentPhase;
-    private final WordToGuess wordToGuess;
-    private final Countdown countdown;
-    private final int initialCountdownValue;
+  private Phase currentPhase;
+  private final WordToGuess wordToGuess;
+  private final Countdown countdown;
+  private final int initialCountdownValue;
 
-    GameState(final String word, final int countdownValue) {
-        wordToGuess = new WordToGuess(word);
-        countdown = new Countdown(countdownValue);
-        initialCountdownValue = countdownValue;
-        currentPhase = Phase.RUNNING;
+  GameState(final String word, final int countdownValue) {
+    wordToGuess = new WordToGuess(word);
+    countdown = new Countdown(countdownValue);
+    initialCountdownValue = countdownValue;
+    currentPhase = Phase.RUNNING;
+  }
+
+  /**
+   * Returns whether the current game is won. A game is won if the user guessed the whole word
+   * before the countdown reached zero.
+   *
+   * @return <code>true</code> if the game was won, <code>false</code> otherwise (i.e., the game is
+   *     still running or was lost)
+   */
+  public boolean isGameWon() {
+    return countdown.getCurrentValue() > 0 && currentPhase.equals(Phase.FINISHED);
+  }
+
+  /** Updates the state after an incorrect guess. */
+  void handleIncorrectGuess() {
+    countdown.decrease();
+    if (getCountdownValue() == 0) {
+      endGame();
     }
+  }
 
-    /**
-     * Returns whether the current game is won. A game is won if the user guessed the whole word
-     * before the countdown reached zero.
-     *
-     * @return <code>true</code> if the game was won, <code>false</code> otherwise (i.e., the game is
-     * still running or was lost)
-     */
-    public boolean isGameWon() {
-        return countdown.getCurrentValue() > 0 && currentPhase.equals(Phase.FINISHED);
-    }
+  /** Updates the state to represent a finished (lost/forfeit) game. */
+  void endGame() {
+    currentPhase = Phase.FINISHED;
+    wordToGuess.revealAll();
+  }
 
-    /**
-     * Updates the state after an incorrect guess.
-     */
-    void handleIncorrectGuess() {
-        countdown.decrease();
-        if (getCountdownValue() == 0) {
-            endGame();
-        }
-    }
+  /**
+   * Return the current phase of the game.
+   *
+   * @return the current phase.
+   */
+  public Phase getCurrentPhase() {
+    return currentPhase;
+  }
 
-    /**
-     * Updates the state to represent a finished (lost/forfeit) game.
-     */
-    void endGame() {
-        currentPhase = Phase.FINISHED;
-        wordToGuess.revealAll();
-    }
+  public WordToGuess getWord() {
+    return wordToGuess;
+  }
 
-    /**
-     * Return the current phase of the game.
-     *
-     * @return the current phase.
-     */
-    public Phase getCurrentPhase() {
-        return currentPhase;
-    }
+  public int getCountdownValue() {
+    return countdown.getCurrentValue();
+  }
 
-    public WordToGuess getWord() {
-        return wordToGuess;
-    }
+  void setCountdownToZero() {
+    countdown.setToZero();
+  }
 
-    public int getCountdownValue() {
-        return countdown.getCurrentValue();
-    }
-
-    void setCountdownToZero() {
-        countdown.setToZero();
-    }
-
-    public int getMaximumCountdownValue() {
-        return initialCountdownValue;
-    }
-
+  public int getMaximumCountdownValue() {
+    return initialCountdownValue;
+  }
 }

@@ -9,42 +9,42 @@ import java.io.Serializable;
  * NewGameRequest}.
  */
 public class JoinGameResponse implements Serializable {
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    /**
-     * Creates a JoinGameResponse object.
-     *
-     * @param gameId           The game id.
-     * @param playerName       Name of the player who wants to join.
-     * @param currentGameState The current game state.
-     * @param currentPlayer    Name of current player.
-     */
-    public JoinGameResponse(
-            int gameId, String playerName, GameState currentGameState, String currentPlayer) {
-        this.gameId = gameId;
-        this.playerName = playerName;
-        this.currentGameState = currentGameState;
-        this.currentPlayer = currentPlayer;
-    }
+  /**
+   * Creates a JoinGameResponse object.
+   *
+   * @param gameId The game id.
+   * @param playerName Name of the player who wants to join.
+   * @param currentGameState The current game state.
+   * @param currentPlayer Name of current player.
+   */
+  public JoinGameResponse(
+      int gameId, String playerName, GameState currentGameState, String currentPlayer) {
+    this.gameId = gameId;
+    this.playerName = playerName;
+    this.currentGameState = currentGameState;
+    this.currentPlayer = currentPlayer;
+  }
 
-    private final int gameId;
-    private final String playerName;
-    private final GameState currentGameState;
-    private final String currentPlayer;
+  private final int gameId;
+  private final String playerName;
+  private final GameState currentGameState;
+  private final String currentPlayer;
 
-    public int getGameId() {
-        return this.gameId;
-    }
+  public int getGameId() {
+    return this.gameId;
+  }
 
-    public String getPlayerName() {
-        return this.playerName;
-    }
+  public String getPlayerName() {
+    return this.playerName;
+  }
 
-    public GameState getCurrentGameState() {
-        return this.currentGameState;
-    }
+  public GameState getCurrentGameState() {
+    return this.currentGameState;
+  }
 
-    public String getCurrentPlayer() {
-        return this.currentPlayer;
-    }
+  public String getCurrentPlayer() {
+    return this.currentPlayer;
+  }
 }

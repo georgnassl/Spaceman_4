@@ -7,45 +7,45 @@ import javax.swing.text.JTextComponent;
 
 class SelectGameInputs extends Box {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    private final JTextComponent userNameInput;
-    private final JTextComponent serverAddressInput;
-    private final JTextComponent gameIdInput;
+  private final JTextComponent userNameInput;
+  private final JTextComponent serverAddressInput;
+  private final JTextComponent gameIdInput;
 
-    private static final int MARGIN = 15; // px
+  private static final int MARGIN = 15; // px
 
-    private SelectGameInputs() {
-        super(BoxLayout.Y_AXIS);
+  private SelectGameInputs() {
+    super(BoxLayout.Y_AXIS);
 
-        userNameInput = new JTextField();
-        serverAddressInput = new JTextField();
-        gameIdInput = new JTextField();
+    userNameInput = new JTextField();
+    serverAddressInput = new JTextField();
+    gameIdInput = new JTextField();
 
-        add(new JLabel("User Name"));
-        add(Components.centerHorizontally(userNameInput));
-        add(new JLabel("Server IP"));
-        add(Components.centerHorizontally(serverAddressInput));
-        add(new JLabel("Game Id (only for join game)"));
-        add(Components.centerHorizontally(gameIdInput));
+    add(new JLabel("User Name"));
+    add(Components.centerHorizontally(userNameInput));
+    add(new JLabel("Server IP"));
+    add(Components.centerHorizontally(serverAddressInput));
+    add(new JLabel("Game Id (only for join game)"));
+    add(Components.centerHorizontally(gameIdInput));
 
-        // add some spacing to the window
-        setBorder(BorderFactory.createEmptyBorder(MARGIN, MARGIN, MARGIN, MARGIN));
-    }
+    // add some spacing to the window
+    setBorder(BorderFactory.createEmptyBorder(MARGIN, MARGIN, MARGIN, MARGIN));
+  }
 
-    static SelectGameInputs create() {
-        return new SelectGameInputs();
-    }
+  static SelectGameInputs create() {
+    return new SelectGameInputs();
+  }
 
-    String getUserName() {
-        return userNameInput.getText();
-    }
+  String getUserName() {
+    return userNameInput.getText();
+  }
 
-    String getServerAddress() {
-        return serverAddressInput.getText();
-    }
+  String getServerAddress() {
+    return serverAddressInput.getText();
+  }
 
-    String getGameId() {
-        return gameIdInput.getText();
-    }
+  String getGameId() {
+    return gameIdInput.getText();
+  }
 }
