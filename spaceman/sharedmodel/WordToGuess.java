@@ -89,14 +89,12 @@ public class WordToGuess implements Serializable {
     }
   }
 
-  /** Reveal every position in the given word (WordToGuess) that contains the given Char.
-   * @param word the WordToGuess.
-   * @param guessedCharacter the character which is supposed to be revealed in the WordToGuess object.
-   * @return newWordToGuess with the revealed new character.
+  /** Reveals every position that contains the given Char.
+   * @param guessedCharacter the character which is supposed to be revealed in the WordToGuess.
    */
-  WordToGuess revealChar(WordToGuess word, char guessedCharacter) {
-    String wordAsString = word.getCompleteWord();
-    List<GuessChar> revealedWord = word.getCharacters();
+   void revealChar(char guessedCharacter) {
+    String wordAsString = this.getCompleteWord();
+    List<GuessChar> revealedWord = this.getCharacters();
     char guessedLower = Character.toLowerCase(guessedCharacter);
     for (int i = 0; i < wordAsString.length(); i++) {
       char originalLower = Character.toLowerCase(wordAsString.charAt(i));
@@ -105,9 +103,7 @@ public class WordToGuess implements Serializable {
         revealedWord.set(i, revealedChar);
       }
     }
-    WordToGuess newWordToGuess = new WordToGuess(wordAsString);
-    newWordToGuess.revealedCharacters = revealedWord;
-    return newWordToGuess;
+    this.revealedCharacters = revealedWord;
   }
 
   private void revealCharacterAt(int atIndex) {

@@ -10,7 +10,7 @@ public class CurrentListOfWords {
   private static ArrayList<String> currentListOfWordsAsString;
 
   /**
-   * Creates an initial CurrentListOfWords in String- and WordToGuess-format.
+   * Creates an initial CurrentListOfWords-Instance with a starting CurrentListOfWords-list in WordToGuess-format.
    * This list is supposed to be updated after every guess.
    * @return a CurrentListOfWords.
    * @TODO: Turn System.out.println into comment for the Praktomat.
@@ -73,7 +73,6 @@ public class CurrentListOfWords {
    * @return a updated List of WordToGuess matching to the currentWord.
    */
   public static ArrayList<WordToGuess> updateCurrentListOfWords(ArrayList<WordToGuess> formerCurrentListOfWords, WordToGuess currentWord) {
-
     currentListOfWords.clear();
     String currentWordAsString = convertToCurrentWordAsString(currentWord);
     for (WordToGuess word : formerCurrentListOfWords) {
@@ -83,5 +82,21 @@ public class CurrentListOfWords {
       }
     }
   return currentListOfWords;
+  }
+
+  /**
+   * Reveals all guessed characters in the WordsToGuess from currenListOfWords.
+   * @param formerCurrentListOfWords the List of WordToGuess to process.
+   * @param guessedCharacter the character to reveal.
+   * @return an updated currentListOfWords.
+   */
+  public static ArrayList<WordToGuess> revealCharactersInWholeList(ArrayList<WordToGuess> formerCurrentListOfWords,
+                                                            char guessedCharacter) {
+    ArrayList<WordToGuess> newCurrentListOfWords = new ArrayList<>();
+    for (WordToGuess word : formerCurrentListOfWords) {
+      word.revealChar(guessedCharacter);
+      newCurrentListOfWords.add(word);
+    }
+    return newCurrentListOfWords;
   }
 }
