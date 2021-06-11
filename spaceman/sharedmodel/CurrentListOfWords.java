@@ -42,7 +42,7 @@ public class CurrentListOfWords {
    * Converts the given WordToGuess to a String.
    * @return a String.
    */
-  public static String convertToCurrentWordAsString(WordToGuess currentWord) {
+  public String convertToCurrentWordAsString(WordToGuess currentWord) {
     List<GuessChar> listOfCharacters = currentWord.getCharacters();
     StringBuilder sb = new StringBuilder();
       for (GuessChar character : listOfCharacters) {
@@ -59,7 +59,7 @@ public class CurrentListOfWords {
    * Converts the List of WordToGuess to a List of String to compare it with the current WordToGuess (as String).
    * @return a List of String.
    */
-  public static ArrayList<String> convertToCurrentListOfWordsAsString(ArrayList<WordToGuess> currentListOfWords) {
+  public ArrayList<String> convertToCurrentListOfWordsAsString(ArrayList<WordToGuess> currentListOfWords) {
     currentListOfWordsAsString.clear();
     for (WordToGuess word : currentListOfWords) {
       String wordAsString = convertToCurrentWordAsString(word);
@@ -72,7 +72,7 @@ public class CurrentListOfWords {
    * Compares the given List of WordToGuess (converted as String) to the given current WordToGuess (converted as String).
    * @return a updated List of WordToGuess matching to the currentWord.
    */
-  public static ArrayList<WordToGuess> updateCurrentListOfWords(ArrayList<WordToGuess> formerCurrentListOfWords, WordToGuess currentWord) {
+  public ArrayList<WordToGuess> updateCurrentListOfWords(ArrayList<WordToGuess> formerCurrentListOfWords, WordToGuess currentWord) {
     currentListOfWords.clear();
     String currentWordAsString = convertToCurrentWordAsString(currentWord);
     for (WordToGuess word : formerCurrentListOfWords) {
@@ -90,7 +90,7 @@ public class CurrentListOfWords {
    * @param guessedCharacter the character to reveal.
    * @return an updated currentListOfWords.
    */
-  public static ArrayList<WordToGuess> revealCharactersInWholeList(ArrayList<WordToGuess> formerCurrentListOfWords,
+  public ArrayList<WordToGuess> revealCharactersInWholeList(ArrayList<WordToGuess> formerCurrentListOfWords,
                                                             char guessedCharacter) {
     ArrayList<WordToGuess> newCurrentListOfWords = new ArrayList<>();
     for (WordToGuess word : formerCurrentListOfWords) {
@@ -98,5 +98,9 @@ public class CurrentListOfWords {
       newCurrentListOfWords.add(word);
     }
     return newCurrentListOfWords;
+  }
+
+  public ArrayList<WordToGuess> getCurrentListOfWords() {
+    return currentListOfWords;
   }
 }
