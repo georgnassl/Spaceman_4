@@ -4,12 +4,21 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class CurrentListOfWords {
-  private ArrayList<WordToGuess> currentListOfWords;
+  private static ArrayList<WordToGuess> currentListOfWords;
 
-  public CurrentListOfWords createCurrentListOfWords(WordDatabase wordDatabase) throws IOException {
+  public static CurrentListOfWords createCurrentListOfWords(WordDatabase wordDatabase) {
     CurrentListOfWords currentList = new CurrentListOfWords();
     currentList.currentListOfWords = new ArrayList<>();
-    ArrayList<String> wholeDatabase = wordDatabase.readWordsFromFile();
     return currentList;
+  }
+
+  public static ArrayList<WordToGuess> convertToCurrentListOfWords(WordDatabase wordDatabase) {
+    ArrayList<String> wholeDatabase = wordDatabase.getWholeDatabase();
+    currentListOfWords = new ArrayList<WordToGuess>();
+    for (String word : wholeDatabase) {
+      WordToGuess wordToGuess = new WordToGuess(word);
+      currentListOfWords.add(wordToGuess);
+    }
+    return currentListOfWords;
   }
 }
