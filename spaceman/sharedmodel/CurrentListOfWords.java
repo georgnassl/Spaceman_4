@@ -15,8 +15,6 @@ public class CurrentListOfWords {
    * @return a CurrentListOfWords.
    * @TODO: Turn System.out.println into comment for the Praktomat.
    */
-
-
   public static CurrentListOfWords createCurrentListOfWords(WordDatabase wordDatabase) {
     CurrentListOfWords currentList = new CurrentListOfWords();
     currentListOfWords = new ArrayList<>();
@@ -41,8 +39,8 @@ public class CurrentListOfWords {
   }
 
   /**
-   * Converts the List of WordToGuess to a List of String to compare it with the current WordToGuess (as String).
-   * @return a List of String.
+   * Converts the given WordToGuess to a String.
+   * @return a String.
    */
   public static String convertToCurrentWordAsString(WordToGuess currentWord) {
     List<GuessChar> listOfCharacters = currentWord.getCharacters();
@@ -70,4 +68,20 @@ public class CurrentListOfWords {
     return currentListOfWordsAsString;
   }
 
+  /**
+   * Compares the given List of WordToGuess (converted as String) to the given current WordToGuess (converted as String).
+   * @return a updated List of WordToGuess matching to the currentWord.
+   */
+  public static ArrayList<WordToGuess> updateCurrentListOfWords(ArrayList<WordToGuess> formerCurrentListOfWords, WordToGuess currentWord) {
+
+    currentListOfWords.clear();
+    String currentWordAsString = convertToCurrentWordAsString(currentWord);
+    for (WordToGuess word : formerCurrentListOfWords) {
+      String possibleNewWord = convertToCurrentWordAsString(word);
+      if (currentWordAsString.equals(possibleNewWord)) {
+      currentListOfWordsAsString.add(possibleNewWord);
+      }
+    }
+  return currentListOfWords;
+  }
 }

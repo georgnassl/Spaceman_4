@@ -89,6 +89,27 @@ public class WordToGuess implements Serializable {
     }
   }
 
+  /** Reveal every position in the given word (WordToGuess) that contains the given Char.
+   * @param word the WordToGuess.
+   * @param guessedCharacter the character which is supposed to be revealed in the WordToGuess object.
+   * @return newWordToGuess with the revealed new character.
+   */
+  WordToGuess revealChar(WordToGuess word, char guessedCharacter) {
+    String wordAsString = word.getCompleteWord();
+    List<GuessChar> revealedWord = word.getCharacters();
+    char guessedLower = Character.toLowerCase(guessedCharacter);
+    for (int i = 0; i < wordAsString.length(); i++) {
+      char originalLower = Character.toLowerCase(wordAsString.charAt(i));
+      if (originalLower == guessedLower) {
+        GuessChar revealedChar = new GuessChar(wordAsString.charAt(i));
+        revealedWord.set(i, revealedChar);
+      }
+    }
+    WordToGuess newWordToGuess = new WordToGuess(wordAsString);
+    newWordToGuess.revealedCharacters = revealedWord;
+    return newWordToGuess;
+  }
+
   private void revealCharacterAt(int atIndex) {
     GuessChar revealedChar = new GuessChar(completeWord.charAt(atIndex));
     revealedCharacters.set(atIndex, revealedChar);
