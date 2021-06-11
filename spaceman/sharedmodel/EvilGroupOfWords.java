@@ -20,6 +20,9 @@ public class EvilGroupOfWords {
   public static EvilGroupOfWords createEvilGroupOfWords (CurrentListOfWords currentListOfWords, Character guessedCharacter) {
     EvilGroupOfWords evilGroupOfWords = new EvilGroupOfWords();
     listOfWords = currentListOfWords;
+
+    System.out.println(listOfWords.getCurrentListOfWords().size());
+
     produceEvilMap(currentListOfWords,guessedCharacter);
     findOutEvilKeyword(evilMapOfWords);
     groupOfEvilWords = extractGroupOfEvilWords(evilMapOfWords, evilKeyword);

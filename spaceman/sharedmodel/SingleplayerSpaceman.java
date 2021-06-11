@@ -18,8 +18,9 @@ public class SingleplayerSpaceman implements Spaceman {
 
   private SingleplayerSpaceman(final String wordToGuess) {
     state = new GameState(wordToGuess, COUNTDOWN_START);
-    state.setWordDatabase(wordDatabase);
-    state.setCurrentListOfWords(currentListOfWords);
+    //state.setWordDatabase(wordDatabase);
+    state.getWord().setCurrentListOfWords(this.currentListOfWords);
+
   }
 
   protected SingleplayerSpaceman() {}

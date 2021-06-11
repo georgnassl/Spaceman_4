@@ -72,15 +72,16 @@ public class CurrentListOfWords {
    * Compares the given List of WordToGuess (converted as String) to the given current WordToGuess (converted as String).
    * @return a updated List of WordToGuess matching to the currentWord.
    */
-  public void updateCurrentListOfWords(ArrayList<WordToGuess> formerCurrentListOfWords, WordToGuess currentWord) {
-    currentListOfWords.clear();
+  public ArrayList<WordToGuess> updateCurrentListOfWords(ArrayList<WordToGuess> formerCurrentListOfWords, WordToGuess currentWord) {
+    ArrayList<WordToGuess> updatedList = new ArrayList<>();
     String currentWordAsString = convertToCurrentWordAsString(currentWord);
     for (WordToGuess word : formerCurrentListOfWords) {
       String possibleNewWord = convertToCurrentWordAsString(word);
       if (currentWordAsString.equals(possibleNewWord)) {
-      currentListOfWords.add(word);
+      updatedList.add(word);
       }
     }
+    return updatedList;
   }
 
   /**

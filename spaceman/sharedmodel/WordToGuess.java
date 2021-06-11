@@ -60,12 +60,16 @@ public class WordToGuess implements Serializable {
    */
   boolean guess(final char guessedCharacter) {
 
-    ArrayList<WordToGuess> formerCurrentListOfWords = currentListOfWords.getCurrentListOfWords();
-    currentListOfWords.updateCurrentListOfWords(formerCurrentListOfWords,this);
+    System.out.println(currentListOfWords.getCurrentListOfWords().size());
+
+    updatedCurrentListOfWords = currentListOfWords.updateCurrentListOfWords(currentListOfWords.getCurrentListOfWords(),this);
+    currentListOfWords.setCurrentListOfWords(updatedCurrentListOfWords);
+    System.out.println(currentListOfWords.getCurrentListOfWords().size());
 
     EvilGroupOfWords evilGroupOfWords = EvilGroupOfWords.createEvilGroupOfWords(currentListOfWords,guessedCharacter);
-    // Here we get just an placeholder (element at 42. position) for the whole evilGroup, that represents the revealed characters
-    WordToGuess newEvilWordToGuess = evilGroupOfWords.getGroupOfEvilWords().get(42);
+    // Here we get just an placeholder (element at 0. position, to get no IndexOutOfBoundsException)
+    // for the whole evilGroup, that represents the revealed characters.
+    WordToGuess newEvilWordToGuess = evilGroupOfWords.getGroupOfEvilWords().get(0);
     this.revealedCharacters = newEvilWordToGuess.getCharacters();
     this.completeWord = newEvilWordToGuess.getCompleteWord();
     System.out.println(completeWord);
