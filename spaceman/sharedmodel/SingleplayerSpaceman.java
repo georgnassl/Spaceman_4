@@ -10,11 +10,16 @@ public class SingleplayerSpaceman implements Spaceman {
   private static final int COUNTDOWN_START = 7;
 
   private GameState state;
+  static WordDatabase wordDatabase;
+  static CurrentListOfWords currentListOfWords;
+
 
   private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
   private SingleplayerSpaceman(final String wordToGuess) {
     state = new GameState(wordToGuess, COUNTDOWN_START);
+    state.setWordDatabase(wordDatabase);
+    state.setCurrentListOfWords(currentListOfWords);
   }
 
   protected SingleplayerSpaceman() {}
@@ -25,8 +30,9 @@ public class SingleplayerSpaceman implements Spaceman {
    * @return Spaceman instance with the random word
    */
   public static Spaceman create() {
-    WordDatabase wordDatabase = new WordDatabase();
+    wordDatabase = new WordDatabase();
     String randomWord = wordDatabase.getWord();
+    currentListOfWords = CurrentListOfWords.createCurrentListOfWords(wordDatabase);
     return new SingleplayerSpaceman(randomWord);
   }
 

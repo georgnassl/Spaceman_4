@@ -11,6 +11,8 @@ public class GameState implements Serializable {
   private WordToGuess wordToGuess;
   private Countdown countdown;
   private int initialCountdownValue;
+  WordDatabase wordDatabase;
+  CurrentListOfWords currentListOfWords;
 
   GameState(final String word, final int countdownValue) {
     wordToGuess = new WordToGuess(word);
@@ -67,5 +69,21 @@ public class GameState implements Serializable {
 
   public int getMaximumCountdownValue() {
     return initialCountdownValue;
+  }
+
+  public void setWordDatabase(WordDatabase wordDatabase) {
+    this.wordDatabase = wordDatabase;
+  }
+
+  public WordDatabase getWordDatabase() {
+    return wordDatabase;
+  }
+
+  public void setCurrentListOfWords(CurrentListOfWords currentListOfWords) {
+    this.currentListOfWords = currentListOfWords;
+  }
+
+  public CurrentListOfWords getCurrentListOfWords() {
+    return currentListOfWords;
   }
 }

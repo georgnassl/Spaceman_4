@@ -21,6 +21,7 @@ public class WordDatabase {
   /**
    * New:
    * Reads the words from the given file and returns a arrayList<String>.
+   * @TODO: Turn System.out.println into comment for the Praktomat.
    */
   public ArrayList<String> readWordsFromFile() throws IOException {
 
@@ -33,7 +34,7 @@ public class WordDatabase {
       wholeDatabase.add(currentLine);
     }
     bufferedReader.close();
-    System.out.println(wholeDatabase.size() + " words added to the database");
+    System.out.println("WordDatabase: "+ wholeDatabase.size() + " words added to the database");
     return wholeDatabase;
   }
 
@@ -54,5 +55,9 @@ public class WordDatabase {
     int guessedIndex = new Random().nextInt(wholeDatabase.size());
     this.wholeDatabase = wholeDatabase;
     return this.wholeDatabase.get(guessedIndex);
+  }
+
+  public ArrayList<String> getWholeDatabase() {
+    return wholeDatabase;
   }
 }
